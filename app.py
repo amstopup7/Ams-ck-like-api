@@ -48,7 +48,7 @@ def create_protobuf_message(user_id, region):
         message.uid = int(user_id)
         message.region = region
         if hasattr(message, 'ob_version'):
-            message.ob_version = "OB53"
+            message.ob_version = "OB54"
         return message.SerializeToString()
     except Exception as e:
         app.logger.error(f"Error creating protobuf message: {e}")
@@ -66,7 +66,7 @@ async def send_request(encrypted_uid, token, url):
             'Expect': "100-continue",
             'X-Unity-Version': "2018.4.11f1",
             'X-GA': "v1 1",
-            'ReleaseVersion': "OB53" #Fixed
+            'ReleaseVersion': "OB54" #Fixed
         }
         async with aiohttp.ClientSession() as session:
             async with session.post(url, data=edata, headers=headers) as response:
@@ -95,7 +95,7 @@ async def send_multiple_requests(uid, server_name, url):
         if tokens is None:
             app.logger.error("Failed to load tokens.")
             return None
-        for i in range(300):
+        for i in range(220):
             token = tokens[i % len(tokens)]["token"]
             tasks.append(send_request(encrypted_uid, token, url))
         results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -111,7 +111,7 @@ def create_protobuf(uid):
         message.garena = 1
  
         if hasattr(message, 'ob_version'):
-            message.ob_version = "OB53"
+            message.ob_version = "OB54"
         return message.SerializeToString()
     except Exception as e:
         app.logger.error(f"Error creating uid protobuf: {e}")
@@ -142,7 +142,7 @@ def make_request(encrypt, server_name, token):
             'Expect': "100-continue",
             'X-Unity-Version': "2018.4.11f1",
             'X-GA': "v1 1",
-            'ReleaseVersion': "OB53"
+            'ReleaseVersion': "OB54"
         }
         response = requests.post(url, data=edata, headers=headers, verify=False)
         if response.status_code != 200:
@@ -241,3 +241,6 @@ def handle_requests():
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)
+
+##FUCK YOU###
+#YOUR DAD MAHIN###
